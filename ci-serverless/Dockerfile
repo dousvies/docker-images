@@ -5,8 +5,8 @@ FROM node:lts-alpine
 ARG SERVERLESS_VERSION=latest
 ENV SERVERLESS_VERSION $SERVERLESS_VERSION
 
-RUN apk --no-cache add python python3==3.8.2-r0 python3-dev==3.8.2-r0 py-pip ca-certificates groff less bash make jq curl wget g++ zip git openssh && \
-    pip --no-cache-dir install awscli && \
+RUN apk add python python3 python3-dev py-pip ca-certificates groff less bash make jq curl wget g++ zip git openssh && \
+    pip install awscli && \
     update-ca-certificates
 
 RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
@@ -20,7 +20,9 @@ RUN mkdir -p /tmp/yarn && \
     wget -q https://yarnpkg.com/latest.tar.gz && \
     tar zvxf latest.tar.gz && \
     find /tmp/yarn -maxdepth 2 -mindepth 2 -exec mv {} /opt/yarn/dist/ \; && \
-    rm -rf /tmp/yarn
+    rm -rf /tmp/yarn && \
+    rm -rf /var/cache/apk/* && \
+    rm -rf /var/tmp/*
 
 RUN ln -sf /opt/yarn/dist/bin/yarn /usr/local/bin/yarn && \
   ln -sf /opt/yarn/dist/bin/yarn /usr/local/bin/yarnpkg && \
