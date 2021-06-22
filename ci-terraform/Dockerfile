@@ -1,6 +1,6 @@
 FROM alpine:3.10
 
-ENV TERRAFORM_VERSION=0.12.29
+ENV TERRAFORM_VERSION=1.0.0
 
 RUN apk update && \
     apk add curl jq python bash ca-certificates git openssl openssh unzip wget && \
