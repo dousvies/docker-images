@@ -1,4 +1,7 @@
-FROM alpine:3.8
+FROM python:3.8-slim
 
-RUN apk add python python3 python3-dev py-pip ca-certificates groff less bash make jq curl wget g++ zip git openssh gettext && \
-    pip install awscli
+RUN apt-get -qq update && \
+    apt-get -y -qq dist-upgrade && \
+    apt-get -qq install -y python3-dev python3-pip ca-certificates groff less bash make jq curl wget g++ zip git gettext && \
+    pip install -q --no-cache awscli && \
+    apt-get -qq clean
